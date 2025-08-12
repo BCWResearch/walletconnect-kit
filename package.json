@@ -16,6 +16,9 @@
     "author": "",
     "license": "ISC",
     "description": "",
+    "peerDependencies": {
+        "react": "^18.0.0 || ^19.0.0"
+    },
     "dependencies": {
         "@hashgraph/hedera-wallet-connect": "^2.0.0-canary.811af2f.0",
         "@hashgraph/sdk": "^2.69.0",
