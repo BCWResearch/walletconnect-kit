@@ -11,6 +11,7 @@ You can wrap your app in one or more wallet providers, allowing for **multi-chai
 
 - **EVM support**: Connect, disconnect, get account, network, balance being exposed from wagmi, 
 - **Hedera support**: Connect, disconnect, account, balance, token data
+- **Cosmos support**: Connect, disconnect, account, using cosmos kit (have access of all hooks)
 - **Universal provider**: Compose providers for one or multiple chains
 - **Custom hooks** for accessing wallet data (useHederaWallet & useEvmWallet)
 
@@ -101,6 +102,25 @@ import  { SupportedChains, UniversalWalletProvider } from 'genric-wallet-connect
     </UniversalWalletProvider>;
 ```
 
+### Setup for Cosmos
+
+```javascript
+import  { SupportedChains, UniversalWalletProvider } from 'genric-wallet-connect'
+//ADD the other shit
+    <UniversalWalletProvider
+        chains={[
+            {
+                chain: SupportedChains.COSMOS,
+                props: {
+                    chainName: ["cosmoshub"] // there is a list of chain name that is supported will link
+                 },
+            },
+        ]}
+    >
+        <App /> {/* Now the whole app will have access to the context of wallet connection*/}
+    </UniversalWalletProvider>;
+```
+
 
 ### Access wallet info 
 
@@ -152,6 +172,24 @@ const { useAppKit, useAppKitAccount, wagmi } = useEvmWallet();
 ```
 - we are using the new wallet connect setup that hedera is pushing out, seems really a rough version this will change as that gets stable, for for further info reference here https://github.com/hashgraph/hedera-wallet-connect?tab=readme-ov-file#using-this-library-and-underlying-walletconnect-libraries-directly do recommend to look and get a basic understanding if the set up seems confusing.
 
+
+### Cosmos 
+
+```javascript
+export interface CosmoWalletContextType {
+    useChain: typeof useChain;
+    useChains: typeof useChains;
+    useChainWallet: typeof useChainWallet;
+    useIframe: typeof useIframe;
+    useManager: typeof useManager;
+    useWallet: typeof useWallet;
+    useNameService: typeof useNameService;
+    useModalTheme: typeof useModalTheme;
+    useWalletClient: typeof useWalletClient;
+}
+
+```
+-  ### TODO add comments here basically need to link the docs but yeee
 
 ### Key Interfaces&Constant to know 
 

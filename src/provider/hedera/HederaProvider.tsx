@@ -88,7 +88,7 @@ export const HederaWalletProvider = ({
                         setTransactionsHistory(transactions);
                     })
                     .catch((e) => console.log(e));
-                console.log("this is a test", userSigner, accountId, balance);
+
                 setSigner(userSigner);
                 setAccount(accountId);
                 setIsConnected(true);
