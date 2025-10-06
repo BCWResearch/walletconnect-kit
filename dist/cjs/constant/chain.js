@@ -6,5 +6,6 @@ var SupportedChains;
 (function (SupportedChains) {
     SupportedChains["HEDERA"] = "HEDERA";
     SupportedChains["EVM"] = "EVM";
+    SupportedChains["COSMOS"] = "COSMOS";
 })(SupportedChains || (exports.SupportedChains = SupportedChains = {}));
 //# sourceMappingURL=chain.js.map
