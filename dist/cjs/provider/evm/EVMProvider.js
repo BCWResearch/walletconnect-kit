@@ -9,28 +9,36 @@ var react_query_1 = require("@tanstack/react-query");
 var wagmi_1 = require("wagmi");
 var react_2 = require("react");
 var wagmi = tslib_1.__importStar(require("wagmi"));
+var viem = tslib_1.__importStar(require("viem"));
+var appkit_adapter_solana_1 = require("@reown/appkit-adapter-solana");
 var queryClient = new react_query_1.QueryClient();
 var EvmWalletContext = (0, react_2.createContext)(undefined);
 var EvmWalletProvider = function (_a) {
-    var children = _a.children, projectId = _a.projectId, enabledNetworks = _a.enabledNetworks, _b = _a.metadata, metadata = _b === void 0 ? {
-        name: "Evm Wallet Connector",
-        description: "AppKit Example",
-        url: "https://reown.com/appkit",
-        icons: ["https://assets.reown.com/reown-profile-pic.png"],
-    } : _b;
-    var networks = enabledNetworks;
+    var children = _a.children, options = _a.options;
     var wagmiAdapter = new appkit_adapter_wagmi_1.WagmiAdapter({
-        networks: networks,
-        projectId: projectId,
+        networks: options.networks,
+        projectId: options.projectId,
         ssr: false,
     });
-    (0, react_1.createAppKit)({
-        adapters: [wagmiAdapter],
-        networks: networks,
-        projectId: projectId,
-        metadata: metadata,
-    });
-    return ((0, jsx_runtime_1.jsx)(EvmWalletContext.Provider, { value: { useAppKit: react_1.useAppKit, useAppKitAccount: react_1.useAppKitAccount, wagmi: wagmi }, children: (0, jsx_runtime_1.jsx)(wagmi_1.WagmiProvider, { config: wagmiAdapter.wagmiConfig, children: (0, jsx_runtime_1.jsx)(react_query_1.QueryClientProvider, { client: queryClient, children: children }) }) }));
+    var solanaAdapter = new appkit_adapter_solana_1.SolanaAdapter();
+    (0, react_1.createAppKit)(tslib_1.__assign({ adapters: [wagmiAdapter, solanaAdapter] }, options));
+    return ((0, jsx_runtime_1.jsx)(EvmWalletContext.Provider, { value: {
+            useAppKit: react_1.useAppKit,
+            useAppKitAccount: react_1.useAppKitAccount,
+            useAppKitNetwork: react_1.useAppKitNetwork,
+            useAppKitProvider: react_1.useAppKitProvider,
+            useAppKitBalance: react_1.useAppKitBalance,
+            useAppKitConnection: react_1.useAppKitConnection,
+            useAppKitConnections: react_1.useAppKitConnections,
+            useAppKitEvents: react_1.useAppKitEvents,
+            useAppKitNetworkCore: react_1.useAppKitNetworkCore,
+            useAppKitState: react_1.useAppKitState,
+            useAppKitTheme: react_1.useAppKitTheme,
+            useDisconnect: react_1.useDisconnect,
+            useWalletInfo: react_1.useWalletInfo,
+            wagmi: wagmi,
+            viem: viem,
+        }, children: (0, jsx_runtime_1.jsx)(wagmi_1.WagmiProvider, { config: wagmiAdapter.wagmiConfig, children: (0, jsx_runtime_1.jsx)(react_query_1.QueryClientProvider, { client: queryClient, children: children }) }) }));
 };
 exports.EvmWalletProvider = EvmWalletProvider;
 var useEvmWallet = function () {
