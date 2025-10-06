@@ -1,6 +1,7 @@
 import { __assign } from "tslib";
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
 import { SupportedChains } from "../constant";
+import { CosmoWalletProvider } from "./cosmos/CosmoProvider";
 import { EvmWalletProvider } from "./evm/EVMProvider";
 import { HederaWalletProvider } from "./hedera/HederaProvider";
 export var UniversalWalletProvider = function (_a) {
@@ -13,6 +14,9 @@ export var UniversalWalletProvider = function (_a) {
         }
         if (chain === SupportedChains.EVM) {
             wrapped = _jsx(EvmWalletProvider, __assign({}, props, { children: wrapped }));
+        }
+        if (chain === SupportedChains.COSMOS) {
+            wrapped = _jsx(CosmoWalletProvider, __assign({}, props, { children: wrapped }));
         }
     });
     return _jsx(_Fragment, { children: wrapped });

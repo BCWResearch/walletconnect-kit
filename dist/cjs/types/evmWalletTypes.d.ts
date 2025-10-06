@@ -1,16 +1,24 @@
-import { AppKitNetwork } from "@reown/appkit/networks";
-import { WalletMetadata } from "./walletMetaData";
-import { SupportedChains } from "../constant/chain";
-import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
+import { useAppKit, useAppKitAccount, useAppKitBalance, useAppKitConnection, useAppKitConnections, useAppKitEvents, useAppKitNetwork, useAppKitNetworkCore, useAppKitProvider, useAppKitState, useAppKitTheme, useWalletInfo, useDisconnect } from "@reown/appkit/react";
 import * as wagmi from "wagmi";
+import * as viem from "viem";
+import { CreateAppKit } from "@reown/appkit";
 export interface EvmProviderProps {
-    chain: SupportedChains.EVM;
-    projectId: string;
-    enabledNetworks: [AppKitNetwork, ...AppKitNetwork[]];
-    metadata?: WalletMetadata;
+    options: Omit<CreateAppKit, "adapters">;
 }
 export interface EvmWalletContextType {
     useAppKit: typeof useAppKit;
     useAppKitAccount: typeof useAppKitAccount;
+    useAppKitNetwork: typeof useAppKitNetwork;
+    useAppKitBalance: typeof useAppKitBalance;
+    useAppKitProvider: typeof useAppKitProvider;
+    useAppKitConnection: typeof useAppKitConnection;
+    useAppKitConnections: typeof useAppKitConnections;
+    useAppKitEvents: typeof useAppKitEvents;
+    useAppKitNetworkCore: typeof useAppKitNetworkCore;
+    useAppKitState: typeof useAppKitState;
+    useAppKitTheme: typeof useAppKitTheme;
+    useDisconnect: typeof useDisconnect;
+    useWalletInfo: typeof useWalletInfo;
     wagmi: typeof wagmi;
+    viem: typeof viem;
 }

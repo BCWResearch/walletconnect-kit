@@ -1,7 +1,6 @@
 import { LedgerId } from "@hashgraph/sdk";
 import { DAppConnector, DAppSigner, HederaChainId } from "@hashgraph/hedera-wallet-connect";
 import { WalletMetadata } from "./walletMetaData";
-import { SupportedChains } from "../constant/chain";
 export type TokenMap = {
     balance: number;
     token_id: string;
@@ -46,7 +45,6 @@ export interface HederaWalletContextType {
     disconnect: () => Promise<void>;
 }
 export interface HederaProviderProps {
-    chain: SupportedChains.HEDERA;
     metadata?: WalletMetadata;
     ledgerId?: LedgerId;
     projectId: string;

@@ -1,32 +1,41 @@
+import { __assign } from "tslib";
 import { jsx as _jsx } from "react/jsx-runtime";
-import { createAppKit, useAppKit, useAppKitAccount } from "@reown/appkit/react";
+import { createAppKit, useAppKit, useAppKitAccount, useAppKitNetwork, useAppKitProvider, useAppKitBalance, useAppKitConnection, useAppKitConnections, useAppKitEvents, useAppKitNetworkCore, useAppKitState, useAppKitTheme, useDisconnect, useWalletInfo, } from "@reown/appkit/react";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { createContext, useContext } from "react";
 import * as wagmi from "wagmi";
+import * as viem from "viem";
+import { SolanaAdapter } from "@reown/appkit-adapter-solana";
 var queryClient = new QueryClient();
 var EvmWalletContext = createContext(undefined);
 export var EvmWalletProvider = function (_a) {
-    var children = _a.children, projectId = _a.projectId, enabledNetworks = _a.enabledNetworks, _b = _a.metadata, metadata = _b === void 0 ? {
-        name: "Evm Wallet Connector",
-        description: "AppKit Example",
-        url: "https://reown.com/appkit",
-        icons: ["https://assets.reown.com/reown-profile-pic.png"],
-    } : _b;
-    var networks = enabledNetworks;
+    var children = _a.children, options = _a.options;
     var wagmiAdapter = new WagmiAdapter({
-        networks: networks,
-        projectId: projectId,
+        networks: options.networks,
+        projectId: options.projectId,
         ssr: false,
     });
-    createAppKit({
-        adapters: [wagmiAdapter],
-        networks: networks,
-        projectId: projectId,
-        metadata: metadata,
-    });
-    return (_jsx(EvmWalletContext.Provider, { value: { useAppKit: useAppKit, useAppKitAccount: useAppKitAccount, wagmi: wagmi }, children: _jsx(WagmiProvider, { config: wagmiAdapter.wagmiConfig, children: _jsx(QueryClientProvider, { client: queryClient, children: children }) }) }));
+    var solanaAdapter = new SolanaAdapter();
+    createAppKit(__assign({ adapters: [wagmiAdapter, solanaAdapter] }, options));
+    return (_jsx(EvmWalletContext.Provider, { value: {
+            useAppKit: useAppKit,
+            useAppKitAccount: useAppKitAccount,
+            useAppKitNetwork: useAppKitNetwork,
+            useAppKitProvider: useAppKitProvider,
+            useAppKitBalance: useAppKitBalance,
+            useAppKitConnection: useAppKitConnection,
+            useAppKitConnections: useAppKitConnections,
+            useAppKitEvents: useAppKitEvents,
+            useAppKitNetworkCore: useAppKitNetworkCore,
+            useAppKitState: useAppKitState,
+            useAppKitTheme: useAppKitTheme,
+            useDisconnect: useDisconnect,
+            useWalletInfo: useWalletInfo,
+            wagmi: wagmi,
+            viem: viem,
+        }, children: _jsx(WagmiProvider, { config: wagmiAdapter.wagmiConfig, children: _jsx(QueryClientProvider, { client: queryClient, children: children }) }) }));
 };
 export var useEvmWallet = function () {
     var context = useContext(EvmWalletContext);

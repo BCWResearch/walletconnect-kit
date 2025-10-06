@@ -3,4 +3,5 @@
 export enum SupportedChains {
     HEDERA = "HEDERA",
     EVM = "EVM",
+    COSMOS = "COSMOS",
 }

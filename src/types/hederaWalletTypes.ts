@@ -48,7 +48,6 @@ export interface HederaWalletContextType {
 }
 
 export interface HederaProviderProps {
-    chain: SupportedChains.HEDERA;
     metadata?: WalletMetadata;
     ledgerId?: LedgerId;
     projectId: string;
