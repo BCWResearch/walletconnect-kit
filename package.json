@@ -1,6 +1,6 @@
 {
     "name": "walletconnect-kit",
-    "version": "1.0.14",
+    "version": "1.0.15",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
@@ -23,6 +23,7 @@
         "@hashgraph/hedera-wallet-connect": "^2.0.3",
         "@hashgraph/sdk": "^2.73.2",
         "@keplr-wallet/provider-extension": "^0.12.279",
+        "@keplr-wallet/types": "^0.12.280",
         "@reown/appkit": "^1.7.18",
         "@reown/appkit-adapter-solana": "^1.8.9",
         "@reown/appkit-adapter-wagmi": "^1.7.18",

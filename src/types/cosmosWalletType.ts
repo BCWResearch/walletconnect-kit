@@ -1,4 +1,5 @@
 import { Keplr } from "@keplr-wallet/provider-extension";
+export * from "@keplr-wallet/types";
 
 export interface CosmosProviderProps {
     chains: string | string[];
