@@ -5,6 +5,7 @@ var tslib_1 = require("tslib");
 tslib_1.__exportStar(require("./constant"), exports);
 tslib_1.__exportStar(require("./types"), exports);
 tslib_1.__exportStar(require("./hooks"), exports);
+tslib_1.__exportStar(require("./utils"), exports);
 var UniversalWalletProvider_1 = require("./provider/UniversalWalletProvider");
 Object.defineProperty(exports, "UniversalWalletProvider", { enumerable: true, get: function () { return UniversalWalletProvider_1.UniversalWalletProvider; } });
 //# sourceMappingURL=index.js.map
