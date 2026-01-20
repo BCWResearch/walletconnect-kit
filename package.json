@@ -1,6 +1,6 @@
 {
     "name": "walletconnect-kit",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
@@ -27,6 +27,7 @@
         "@reown/appkit": "^1.7.18",
         "@reown/appkit-adapter-solana": "^1.8.9",
         "@reown/appkit-adapter-wagmi": "^1.7.18",
+        "@reown/appkit-wallet-button": "^1.8.17",
         "@tanstack/react-query": "^5.84.1",
         "@walletconnect/modal": "^2.7.0",
         "axios": "^1.11.0",
