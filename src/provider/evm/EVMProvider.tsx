@@ -23,6 +23,7 @@ import { createContext, PropsWithChildren, useContext } from "react";
 import * as wagmi from "wagmi";
 import * as viem from "viem";
 import { SolanaAdapter } from "@reown/appkit-adapter-solana";
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +35,9 @@ export const EvmWalletProvider = ({ children, options }: PropsWithChildren<EvmPr
         projectId: options.projectId,
         ssr: false,
     });
-    const solanaAdapter = new SolanaAdapter();
+    const solanaAdapter = new SolanaAdapter({
+        wallets: [new PhantomWalletAdapter()],
+    });
 
     createAppKit({
         adapters: [wagmiAdapter, solanaAdapter],

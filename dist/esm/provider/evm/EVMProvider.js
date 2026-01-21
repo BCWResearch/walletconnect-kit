@@ -8,6 +8,7 @@ import { createContext, useContext } from "react";
 import * as wagmi from "wagmi";
 import * as viem from "viem";
 import { SolanaAdapter } from "@reown/appkit-adapter-solana";
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 var queryClient = new QueryClient();
 var EvmWalletContext = createContext(undefined);
 export var EvmWalletProvider = function (_a) {
@@ -17,7 +18,9 @@ export var EvmWalletProvider = function (_a) {
         projectId: options.projectId,
         ssr: false,
     });
-    var solanaAdapter = new SolanaAdapter();
+    var solanaAdapter = new SolanaAdapter({
+        wallets: [new PhantomWalletAdapter()], // Ensure ONLY Phantom is here
+    });
     createAppKit(__assign({ adapters: [wagmiAdapter, solanaAdapter] }, options));
     return (_jsx(EvmWalletContext.Provider, { value: {
             useAppKit: useAppKit,

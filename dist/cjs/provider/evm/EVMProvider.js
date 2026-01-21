@@ -11,6 +11,7 @@ var react_2 = require("react");
 var wagmi = tslib_1.__importStar(require("wagmi"));
 var viem = tslib_1.__importStar(require("viem"));
 var appkit_adapter_solana_1 = require("@reown/appkit-adapter-solana");
+var wallet_adapter_wallets_1 = require("@solana/wallet-adapter-wallets");
 var queryClient = new react_query_1.QueryClient();
 var EvmWalletContext = (0, react_2.createContext)(undefined);
 var EvmWalletProvider = function (_a) {
@@ -20,7 +21,9 @@ var EvmWalletProvider = function (_a) {
         projectId: options.projectId,
         ssr: false,
     });
-    var solanaAdapter = new appkit_adapter_solana_1.SolanaAdapter();
+    var solanaAdapter = new appkit_adapter_solana_1.SolanaAdapter({
+        wallets: [new wallet_adapter_wallets_1.PhantomWalletAdapter()], // Ensure ONLY Phantom is here
+    });
     (0, react_1.createAppKit)(tslib_1.__assign({ adapters: [wagmiAdapter, solanaAdapter] }, options));
     return ((0, jsx_runtime_1.jsx)(EvmWalletContext.Provider, { value: {
             useAppKit: react_1.useAppKit,
