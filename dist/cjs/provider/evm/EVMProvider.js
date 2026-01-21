@@ -22,7 +22,7 @@ var EvmWalletProvider = function (_a) {
         ssr: false,
     });
     var solanaAdapter = new appkit_adapter_solana_1.SolanaAdapter({
-        wallets: [new wallet_adapter_wallets_1.PhantomWalletAdapter()], // Ensure ONLY Phantom is here
+        wallets: [new wallet_adapter_wallets_1.PhantomWalletAdapter()],
     });
     (0, react_1.createAppKit)(tslib_1.__assign({ adapters: [wagmiAdapter, solanaAdapter] }, options));
     return ((0, jsx_runtime_1.jsx)(EvmWalletContext.Provider, { value: {

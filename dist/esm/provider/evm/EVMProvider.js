@@ -19,7 +19,7 @@ export var EvmWalletProvider = function (_a) {
         ssr: false,
     });
     var solanaAdapter = new SolanaAdapter({
-        wallets: [new PhantomWalletAdapter()], // Ensure ONLY Phantom is here
+        wallets: [new PhantomWalletAdapter()],
     });
     createAppKit(__assign({ adapters: [wagmiAdapter, solanaAdapter] }, options));
     return (_jsx(EvmWalletContext.Provider, { value: {
