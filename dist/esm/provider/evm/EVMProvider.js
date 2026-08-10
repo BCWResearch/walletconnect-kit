@@ -10,15 +10,19 @@ import * as viem from "viem";
 import { SolanaAdapter } from "@reown/appkit-adapter-solana";
 var queryClient = new QueryClient();
 var EvmWalletContext = createContext(undefined);
+var cachedWagmiAdapter;
 export var EvmWalletProvider = function (_a) {
     var children = _a.children, options = _a.options;
-    var wagmiAdapter = new WagmiAdapter({
-        networks: options.networks,
-        projectId: options.projectId,
-        ssr: false,
-    });
-    var solanaAdapter = new SolanaAdapter();
-    createAppKit(__assign({ adapters: [wagmiAdapter, solanaAdapter] }, options));
+    if (!cachedWagmiAdapter) {
+        var wagmiAdapter = new WagmiAdapter({
+            networks: options.networks,
+            projectId: options.projectId,
+            ssr: false,
+        });
+        var solanaAdapter = new SolanaAdapter();
+        createAppKit(__assign({ adapters: [wagmiAdapter, solanaAdapter] }, options));
+        cachedWagmiAdapter = wagmiAdapter;
+    }
     return (_jsx(EvmWalletContext.Provider, { value: {
             useAppKit: useAppKit,
             useAppKitAccount: useAppKitAccount,
@@ -35,7 +39,7 @@ export var EvmWalletProvider = function (_a) {
             useWalletInfo: useWalletInfo,
             wagmi: wagmi,
             viem: viem,
-        }, children: _jsx(WagmiProvider, { config: wagmiAdapter.wagmiConfig, children: _jsx(QueryClientProvider, { client: queryClient, children: children }) }) }));
+        }, children: _jsx(WagmiProvider, { config: cachedWagmiAdapter.wagmiConfig, children: _jsx(QueryClientProvider, { client: queryClient, children: children }) }) }));
 };
 export var useEvmWallet = function () {
     var context = useContext(EvmWalletContext);

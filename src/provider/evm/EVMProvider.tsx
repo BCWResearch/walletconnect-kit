@@ -28,18 +28,23 @@ const queryClient = new QueryClient();
 
 const EvmWalletContext = createContext<EvmWalletContextType | undefined>(undefined);
 
-export const EvmWalletProvider = ({ children, options }: PropsWithChildren<EvmProviderProps>) => {
-    const wagmiAdapter = new WagmiAdapter({
-        networks: options.networks,
-        projectId: options.projectId,
-        ssr: false,
-    });
-    const solanaAdapter = new SolanaAdapter();
+let cachedWagmiAdapter: WagmiAdapter | undefined;
 
-    createAppKit({
-        adapters: [wagmiAdapter, solanaAdapter],
-        ...options,
-    });
+export const EvmWalletProvider = ({ children, options }: PropsWithChildren<EvmProviderProps>) => {
+    if (!cachedWagmiAdapter) {
+        const wagmiAdapter = new WagmiAdapter({
+            networks: options.networks,
+            projectId: options.projectId,
+            ssr: false,
+        });
+        const solanaAdapter = new SolanaAdapter();
+
+        createAppKit({
+            adapters: [wagmiAdapter, solanaAdapter],
+            ...options,
+        });
+        cachedWagmiAdapter = wagmiAdapter;
+    }
     return (
         <EvmWalletContext.Provider
             value={{
@@ -60,7 +65,7 @@ export const EvmWalletProvider = ({ children, options }: PropsWithChildren<EvmPr
                 viem,
             }}
         >
-            <WagmiProvider config={wagmiAdapter.wagmiConfig}>
+            <WagmiProvider config={cachedWagmiAdapter.wagmiConfig}>
                 <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
             </WagmiProvider>
         </EvmWalletContext.Provider>
